@@ -1,0 +1,90 @@
+﻿@model  iStartWeb.Models.UserRegisterViewModel
+
+    @if  (TempData["failureMsg"]==null)
+    {
+        <div class="alert alert-danger"id="failure-alert">
+            <strong>Error Info: !</strong> @TempData["failureMsg"] 
+            <button type="button" class="close" data-dismiss="alert">x</button>
+        </div>
+    }
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-sm-center h-100">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5">
+                            <h1 class="fs-4 card-title fst-normal mb-4">
+                                Sign in with
+                            </h1>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                            <div class="mb-3">
+
+
+                                @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @placeholder = "Email address", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="mb-3" style="color:red"> @TempData["emailerrorEmpty"]</div>
+                            <div class="mb-3">
+
+
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @placeholder = "Password", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+
+                            </div>
+                            <div class="mb-3" style="color:red"> @TempData["passworderrorEmpty"]</div>
+
+                            <div class=" align-items-center">
+                                <div class="form-check">
+                                    <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                                    <label for="remember" class="form-check-label">Remember Me</label>
+                                </div>
+                            </div>
+                            <div class="d-print-inline-flex">
+                                <a href="#">Forgot password?</a>
+                            </div>
+
+                            <div class=" py-3 border-0">
+
+                                <input type="submit" value="Login" class="btn btn-primary ms-auto" />
+
+                            </div>
+                            <div class="py-8 border-0">
+
+                                Don't have an account? <a href="../Register/Index" class="text-dark"><p style="color:hotpink">Register<p> </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+@section Scripts {
+
+
+    <script>
+        window.setTimeout(function () {
+            $("#failure-alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 4000);
+
+    </script>
+    
+}

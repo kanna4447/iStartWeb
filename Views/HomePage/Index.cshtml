@@ -1,0 +1,183 @@
+﻿@model IEnumerable<iStartWeb.Models.UserRegisterViewModel>
+
+@{
+    iStartWeb.Models.PagerModel pager = new iStartWeb.Models.PagerModel();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+
+}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h5 class="text-center text-primary">User Management</h5>
+
+            <h3>
+
+                @Session["email"]
+
+            </h3>
+            <div class="col-5 offset-12">
+                <a href="@Url.Action("LogOut","Login")">Logout</a>
+
+
+
+            </div>
+
+            <div class="container offset-sm-9">
+                <i class="fa fa-download" aria-hidden="true">Download</i><i class="fa fa-angle-down" aria-hidden="true"></i>
+
+                <a href="../Register/Index" class="btn btn-sm btn-success m-1" style="background-color:deeppink;color:white">New <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+
+            </div>
+
+            <div class="container offset-sm-8">
+                @using (Html.BeginForm("Index", "HomePage", FormMethod.Get))
+                {
+                    <span class="btn-group">
+                        @Html.Label("Search:")
+                        @Html.TextBox("SearchText", "", htmlAttributes: new { @class = "w-100 form-control", @style = "margin:5px 5px 5px 5px" })
+
+
+
+                    </span>
+                }
+
+            </div>
+
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="bg-primary text-light">
+                    <tr class="text-center">
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var d in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@d.RegisterId</td>
+                            <td>
+                                @d.Name
+                            </td>
+                            <td>@d.EmailID</td>
+                            <td>
+
+                                @if (d.EmailID == Session["email"].ToString())
+
+                                {
+                                    <span style="color:darkgreen">Active</span>
+                                }
+
+                                else
+                                {
+                                    <span style="color:red"> Inactive </span>
+                                }
+
+                            </td>
+
+                            <td>
+
+                                @if (d.EmailID == Session["email"].ToString())
+
+                                {
+                                    <a href="/HomePage/Edit?userId=@d.RegisterId"> <i class="fa fa-edit"></i></a>
+
+                                }
+                                else
+                                {
+                                    <i class="fa fa-edit"></i>
+
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+            
+
+
+
+
+            <div class="container mt-1">
+                <p>
+                    Showing @pager.StartRecord to @pager.EndRecord of @pager.TotalItems entries
+                </p>
+                <ul class="pagination justify-content-end">
+
+
+                    @if (pager.CurrentPage > 1)
+                    {
+
+                        <li class="page-item">
+
+                            <a href="/HomePage/Index?page=1&@pager.PageSize&@pager.SearchText" class="page-link">First</a>
+                        </li>
+
+                        <li class="page-item">
+
+                            <a href="/HomePage/Index?page=@(pager.CurrentPage - 1)&@pager.PageSize&@pager.SearchText" class="page-link">Previous</a>
+                        </li>
+                    }
+
+
+
+                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                    {
+                        <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                            @if (pge != pager.CurrentPage)
+                            {
+
+                                <a href="/HomePage/Index?page=@pge&@pager.PageSize&@pager.SearchText" style="background-color: deeppink; color: white" class="page-link">@pge</a>
+
+                            }
+                            else
+                            {
+                                <span class="page-link" style="background-color:white;color:blue">@pge</span>
+                            }
+
+                        </li>
+                    }
+                    @if (pager.CurrentPage < pager.TotalPages)
+                    {
+                        <li class="page-item">
+
+                            <a href="/HomePage/Index?page=@(pager.CurrentPage+1)&@pager.PageSize&@pager.SearchText" class="page-link">Next</a>
+                        </li>
+
+                        <li class="page-item">
+
+                            <a href="/HomePage/Index?page=@(pager.TotalPages)&@pager.PageSize&@pager.SearchText" class="page-link">Last</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    @*<div class="col-4 btn-group justify-content-end mt-2">
+
+        <p>
+            Showing @pager.CurrentPage / @pager.TotalPages Pages
+        </p>
+    </div>*@ 
+
+

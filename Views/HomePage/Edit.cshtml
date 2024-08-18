@@ -1,0 +1,67 @@
+﻿@model iStartWeb.Models.UserRegisterViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="h-100" autocomplete="off">
+        <div class="container h-100">
+            <div class="row justify-content-sm-center h-100">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5">
+                            <h1 class="fs-4 card-title fw-bold mb-4">
+                                Edit
+                            </h1>
+                            
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.RegisterId, htmlAttributes: new { @class = "mb-2 text-muted" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RegisterId, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+                                    
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "mb-2 text-muted" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "mb-2 text-muted" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control",disabled="true" } })
+                                    
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Update" class="btn btn-primary" />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+
+                               <a href="../HomePage/Index" class="text-dark"><p style="color:hotpink">Back to List<p> </a>
+
+                            </div>
+
+                        </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+       
+
+    </section>
+}
+
