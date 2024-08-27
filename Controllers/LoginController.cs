@@ -15,7 +15,7 @@ namespace iStartWeb.Controllers
     {
         // GET: Login
 
-        Uri baseAddress = new Uri("https://localhost:44309/api");
+        Uri baseAddress = new Uri("<api url>");
         private readonly HttpClient _client;
        
         public LoginController()
